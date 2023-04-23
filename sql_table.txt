@@ -1,0 +1,495 @@
+CREATE TABLE public."ADRESS"
+(
+    address_id integer NOT NULL,
+    country_id integer,
+    city character varying(100),
+    street character varying(100),
+    PRIMARY KEY (address_id)
+);
+
+CREATE TABLE public."JOB_OFFER"
+(
+    offer_id integer NOT NULL,
+    job_title character varying(100),
+    description character varying(100),
+    address_id integer,
+    PRIMARY KEY (offer_id),
+    CONSTRAINT "ADRESS" FOREIGN KEY (address_id)
+        REFERENCES public."ADRESS" (address_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."POST"
+(
+    post_id integer NOT NULL,
+    text character varying(100),
+    media path,
+    date date,
+    PRIMARY KEY (post_id)
+);
+
+CREATE TABLE public."SKILL"
+(
+    skill_id integer NOT NULL,
+    name character varying(100),
+    category character varying(100),
+    expreience character varying(100),
+    PRIMARY KEY (skill_id),
+	CONSTRAINT category_check CHECK(category IN ('Software', 'FineArts', 'Science','Sports','language', 'programming language' ))
+);
+
+CREATE TABLE public."FACULTY"
+(
+    faculty_id integer NOT NULL,
+    name character varying(100),
+    PRIMARY KEY (faculty_id)
+);
+
+CREATE TABLE public."DEPARTMENT"
+(
+    dept_id integer NOT NULL,
+    name character varying(100),
+    faculty_id integer,
+    PRIMARY KEY (dept_id),
+    CONSTRAINT faculty_id FOREIGN KEY (faculty_id)
+        REFERENCES public."FACULTY" (faculty_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."GRADUATE_LEVEL"
+(
+    grad_id integer NOT NULL,
+    name character varying(100),
+    dept_id integer,
+    PRIMARY KEY (grad_id),
+    CONSTRAINT "DEPARTMENT" FOREIGN KEY (dept_id)
+        REFERENCES public."DEPARTMENT" (dept_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."COMMENT"
+(
+    comment_id integer NOT NULL,
+    content character varying(100),
+    post_id integer,
+    PRIMARY KEY (comment_id),
+    CONSTRAINT post FOREIGN KEY (post_id)
+        REFERENCES public."POST" (post_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+
+CREATE TABLE public."PERSON"
+(
+    person_id integer NOT NULL,
+    password character varying(100),
+    phone character varying(100),
+    mail character varying(100),
+    bday date,
+    fname character varying(100),
+    lname character varying(100),
+    "teacherFlag" bit(1),
+    branch character varying(100),
+    dept_id integer,
+    "studentFlag" bit(1),
+    gpa character varying(100),
+    grade character varying(100),
+    "memberFlag" bit(1),
+    address_id integer,
+    PRIMARY KEY (person_id),
+    FOREIGN KEY (dept_id)
+        REFERENCES public."DEPARTMENT" (dept_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+	CONSTRAINT password_check CHECK( char_length(password)>=4 )
+);
+
+CREATE TABLE public."FILE"
+(
+    file_id integer NOT NULL,
+    name character varying(100),
+    privacy character varying(100),
+    person_id integer,
+    PRIMARY KEY (file_id),
+    FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+	CONSTRAINT privacy_check CHECK (privacy in ('0', '1', '2'))
+);
+
+CREATE TABLE public."GROUP"
+(
+    group_id integer NOT NULL,
+    name character varying,
+    description character varying,
+    person_id integer,
+    PRIMARY KEY (group_id),
+    FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."UNIVERSITY"
+(
+    org_id integer NOT NULL,
+    name character varying(100),
+    mail character varying(100),
+    phone character varying(100),
+    PRIMARY KEY (org_id)
+);
+
+CREATE TABLE public."COMPANY"
+(
+    org_id integer NOT NULL,
+    name character varying(100),
+    mail character varying(100),
+    phone character varying(100),
+    PRIMARY KEY (org_id)
+);
+
+CREATE TABLE public."OFFICE"
+(
+    office_id integer NOT NULL,
+    name character varying,
+    org_id integer,
+    PRIMARY KEY (office_id),
+    FOREIGN KEY (org_id)
+        REFERENCES public."COMPANY" (org_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+
+CREATE TABLE public."COURSE"
+(
+    course_id integer NOT NULL,
+    name character varying(100),
+    code character varying(100),
+    credit character varying(100),
+    dept_id integer,
+    PRIMARY KEY (course_id),
+    FOREIGN KEY (dept_id)
+        REFERENCES public."DEPARTMENT" (dept_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."PROJECT"
+(
+    project_id integer NOT NULL,
+    title character varying(100),
+    description character varying(100),
+    course_id integer,
+    PRIMARY KEY (project_id),
+    FOREIGN KEY (course_id)
+        REFERENCES public."COURSE" (course_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+
+CREATE TABLE public."GROUP_MANAGE"
+(
+    group_id integer NOT NULL,
+    person_id integer NOT NULL,
+    PRIMARY KEY (group_id, person_id),
+    CONSTRAINT "GROUP" FOREIGN KEY (group_id)
+        REFERENCES public."GROUP" (group_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."GROUP_JOIN"
+(
+    group_id integer NOT NULL,
+    person_id integer NOT NULL,
+    PRIMARY KEY (group_id, person_id),
+    CONSTRAINT "GROUP" FOREIGN KEY (group_id)
+        REFERENCES public."GROUP" (group_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."MEMBER_CONNECT"
+(
+    person_id integer NOT NULL,
+    connect_person_id integer NOT NULL,
+    PRIMARY KEY (person_id, connect_person_id),
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT coonect FOREIGN KEY (connect_person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."MEMBER_MESSAGE"
+(
+    person_id integer NOT NULL,
+    connect_person_id integer NOT NULL,
+    title character varying(100),
+    date date,
+    context_text character varying(100),
+    PRIMARY KEY (person_id, connect_person_id),
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "connect" FOREIGN KEY (connect_person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+
+CREATE TABLE public."MEMBER_POST"
+(
+    person_id integer NOT NULL,
+    post_id integer NOT NULL,
+    PRIMARY KEY (person_id, post_id),
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "POST" FOREIGN KEY (post_id)
+        REFERENCES public."POST" (post_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."MEMBER_USES"
+(
+    person_id integer NOT NULL,
+    post_id integer NOT NULL,
+    PRIMARY KEY (person_id, post_id),
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "POST" FOREIGN KEY (post_id)
+        REFERENCES public."POST" (post_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."MEMBER_APPLIES_JOB_OFFER"
+(
+    offer_id integer NOT NULL,
+    person_id integer NOT NULL,
+    PRIMARY KEY (offer_id, person_id),
+    CONSTRAINT offer FOREIGN KEY (offer_id)
+        REFERENCES public."JOB_OFFER" (offer_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."MEMBER_FOLLOWS"
+(
+    person_id integer NOT NULL,
+    company_id integer NOT NULL,
+    PRIMARY KEY (person_id, company_id),
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT company FOREIGN KEY (company_id)
+        REFERENCES public."COMPANY" (org_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."PERSON_SKILL"
+(
+    skill_id integer NOT NULL,
+    person_id integer NOT NULL,
+    PRIMARY KEY (skill_id, person_id),
+    CONSTRAINT "SKILL" FOREIGN KEY (skill_id)
+        REFERENCES public."SKILL" (skill_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."PERSON_EDUCATES_IN"
+(
+    person_id integer NOT NULL,
+    grad_id integer NOT NULL,
+    PRIMARY KEY (person_id, grad_id),
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT grad FOREIGN KEY (grad_id)
+        REFERENCES public."GRADUATE_LEVEL" (grad_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+CREATE TABLE public."COURSE_TEACHES"
+(
+    person_id integer NOT NULL,
+    course_id integer NOT NULL,
+    semester character varying(100) NOT NULL,
+    PRIMARY KEY (course_id, person_id, semester),
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "COURSE" FOREIGN KEY (course_id)
+        REFERENCES public."COURSE" (course_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."STUDENTS_WORK_ON_PROJECT"
+(
+    person_id integer NOT NULL,
+    project_id integer NOT NULL,
+    grade integer NOT NULL,
+    PRIMARY KEY (person_id, project_id, grade),
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "PROJECT" FOREIGN KEY (project_id)
+        REFERENCES public."PROJECT" (project_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "GRADUATE_LEVEL" FOREIGN KEY (grade)
+        REFERENCES public."GRADUATE_LEVEL" (grad_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+	
+CREATE TABLE public."STUDENT_ENROLL"
+(
+    person_id integer NOT NULL,
+    course_id integer NOT NULL,
+    semester character varying(100) NOT NULL,
+    grade character varying(100) NOT NULL,
+    PRIMARY KEY (person_id, course_id, semester, grade),
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "COURSE" FOREIGN KEY (course_id)
+        REFERENCES public."COURSE" (course_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."MEMBER_COMMENT"
+(
+    person_id integer NOT NULL,
+    comment_id integer NOT NULL,
+    PRIMARY KEY (person_id, comment_id),
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "COMMENT" FOREIGN KEY (comment_id)
+        REFERENCES public."COMMENT" (comment_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."MEMBER_WORKS_FOR_OFFICE"
+(
+    person_id integer NOT NULL,
+    office_id integer NOT NULL,
+    start_date date,
+    end_date date,
+    job_title character varying(100),
+    PRIMARY KEY (person_id, office_id),
+    CONSTRAINT "PERSON" FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "OFFICE" FOREIGN KEY (office_id)
+        REFERENCES public."OFFICE" (office_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+CREATE TABLE public."MEMBER_LIKES_POST"
+(
+    person_id integer NOT NULL,
+    post_id integer NOT NULL,
+    CONSTRAINT person PRIMARY KEY (person_id, post_id),
+    FOREIGN KEY (person_id)
+        REFERENCES public."PERSON" (person_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "POST" FOREIGN KEY (post_id)
+        REFERENCES public."POST" (post_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+

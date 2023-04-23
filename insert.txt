@@ -1,0 +1,450 @@
+INSERT INTO public."ADRESS" (address_id, country_id, city, street)
+VALUES (1, 90, 'İzmir', 'Bornova');
+
+INSERT INTO public."ADRESS" (address_id, country_id, city, street)
+VALUES (2, 90, 'İstanbul', 'Kadıköy');
+
+INSERT INTO public."ADRESS" (address_id, country_id, city, street)
+VALUES (3, 90, 'İzmir', 'Karşıyaka');
+
+INSERT INTO public."ADRESS" (address_id, country_id, city, street)
+VALUES (4, 90, 'İzmir', 'Bayraklı');
+
+INSERT INTO public."ADRESS" (address_id, country_id, city, street)
+VALUES (5, 90, 'İzmir', 'Konak');
+
+INSERT INTO public."ADRESS" (address_id, country_id, city, street)
+VALUES (6, 90, 'İzmir', 'Göztepe');
+
+INSERT INTO public."ADRESS" (address_id, country_id, city, street)
+VALUES (7, 90, 'İstanbul', 'Beşiktaş');
+
+INSERT INTO public."ADRESS" (address_id, country_id, city, street)
+VALUES (8, 90, 'İstanbul', 'Bebek');
+
+INSERT INTO public."ADRESS" (address_id, country_id, city, street)
+VALUES (9, 90, 'İstanbul', 'Maltepe');
+
+INSERT INTO public."ADRESS" (address_id, country_id, city, street)
+VALUES (10, 90, 'Kütahya', 'Tavşanlı');
+
+
+
+
+
+INSERT INTO public."JOB_OFFER" (offer_id, job_title, description , address_id )
+VALUES (1, 'software developer', 'mac or windows?', '1');
+
+INSERT INTO public."JOB_OFFER" (offer_id, job_title, description , address_id )
+VALUES (2, 'game developer', 'do you like play game?', '1');
+
+INSERT INTO public."JOB_OFFER" (offer_id, job_title, description , address_id )
+VALUES (3, 'embedded system', 'looking for an embedded system specialist', '2');
+
+INSERT INTO public."JOB_OFFER" (offer_id, job_title, description , address_id )
+VALUES (4, 'mobile developer', 'looking for mobile developer specialist', '2');
+
+
+
+INSERT INTO public."POST" (post_id, text, media)
+VALUES (1, 'yıldızları yönetmek maharet isteyen bir iş değil.', NULL);
+
+
+INSERT INTO public."POST" (post_id, text, media)
+VALUES (2, 'tüm mesele bu olmak ya da olmamak...', NULL);
+
+INSERT INTO public."POST" (post_id, text, media)
+VALUES (3, 'hiçbir arzum yok, yeryüzünde masum kalmak dışında', NULL);
+
+
+
+INSERT INTO public."SKILL" (skill_id, name, category, expreience)
+VALUES (1, 'english', 'language', 'B1');
+
+INSERT INTO public."SKILL" (skill_id, name, category, expreience)
+VALUES (2, 'english', 'language', 'B2');
+
+INSERT INTO public."SKILL" (skill_id, name, category, expreience)
+VALUES (3, 'english', 'language', 'C1');
+
+
+INSERT INTO public."SKILL" (skill_id, name, category, expreience)
+VALUES (4, 'java', 'programming language', 'junior');
+
+INSERT INTO public."SKILL" (skill_id, name, category, expreience)
+VALUES (5, 'java', 'programming language', 'senior');
+
+
+
+INSERT INTO public."FACULTY" (faculty_id, name)
+VALUES (1, 'Faculty of Engineering');
+
+INSERT INTO public."FACULTY" (faculty_id, name)
+VALUES (2, 'Faculty of Humanities');
+
+INSERT INTO public."FACULTY" (faculty_id, name)
+VALUES (3, 'Faculty of Law');
+
+
+INSERT INTO public."DEPARTMENT" (dept_id, name, faculty_id)
+VALUES (1, 'computer engineering', 1);
+
+INSERT INTO public."DEPARTMENT" (dept_id, name, faculty_id)
+VALUES (2, 'mechanical engineering', 1);
+
+INSERT INTO public."DEPARTMENT" (dept_id, name, faculty_id)
+VALUES (3, 'electrical engineering', 1);
+
+
+INSERT INTO public."GRADUATE_LEVEL" (grad_id, name, dept_id)
+VALUES (1, 'master', 1);
+
+
+INSERT INTO public."GRADUATE_LEVEL" (grad_id, name, dept_id)
+VALUES (2, 'bachelor', 1);
+
+
+
+
+INSERT INTO public."COMMENT" (comment_id, content, post_id)
+VALUES (1, 'katılıyorum', 1);
+
+INSERT INTO public."COMMENT" (comment_id, content, post_id)
+VALUES (2, 'gerçekten öyle', 1);
+
+INSERT INTO public."COMMENT" (comment_id, content, post_id)
+VALUES (3, 'bu ifadeyi biraz abartılı buldum...', 1);
+
+
+
+
+INSERT INTO public."PERSON" (person_id, password, phone, mail, bday, fname, lname, "teacherFlag", branch, dept_id, "studentFlag", gpa, grade, "memberFlag", address_id )
+VALUES (1, '123456', '+905557891597', 'alikoc@gmail.com', '15-7-1980', 'Ali', 'Koç', '1', 'turkish', 1, '0', null, null, '0', 3);
+
+INSERT INTO public."PERSON" (person_id, password, phone, mail, bday, fname, lname, "teacherFlag", branch, dept_id, "studentFlag", gpa, grade, "memberFlag", address_id )
+VALUES (2, '123456', '+905437891498', 'cemsakin@gmail.com', '19-1-1985', 'Cem', 'Sakin', '0', null, null, '1', 3.45, 'master', '0', 4);
+
+INSERT INTO public."PERSON" (person_id, password, phone, mail, bday, fname, lname, "teacherFlag", branch, dept_id, "studentFlag", gpa, grade, "memberFlag", address_id )
+VALUES (3, '123456', '+905317894573', 'cemregecer@gmail.com', '19-4-1995', 'Cemre', 'Geçer', '0', null, null, '1', 3.31, 'master', '0', 5);
+
+INSERT INTO public."PERSON" (person_id, password, phone, mail, bday, fname, lname, "teacherFlag", branch, dept_id, "studentFlag", gpa, grade, "memberFlag", address_id )
+VALUES (4, '123456', '+905387896472', 'mehmetpiskin@gmail.com', '8-4-1996', 'Mehmet', 'Pişkin', '0', null, null, '0', null, null, '1', 6);
+
+INSERT INTO public."PERSON" (person_id, password, phone, mail, bday, fname, lname, "teacherFlag", branch, dept_id, "studentFlag", gpa, grade, "memberFlag", address_id )
+VALUES (5, '123456', '+905456149437', 'alpkorkar@gmail.com', '18-1-1995', 'Alp', 'Korkar', '0', null, null, '0', null, null, '1', 7);
+
+INSERT INTO public."PERSON" (person_id, password, phone, mail, bday, fname, lname, "teacherFlag", branch, dept_id, "studentFlag", gpa, grade, "memberFlag", address_id )
+VALUES (6, '123456', '+905456149437', 'cebrail@gmail.com', '18-12-1990', 'Cebrail', 'Korkmaz', '0', null, null, '0', null, null, '1', 8);
+
+INSERT INTO public."PERSON" (person_id, password, phone, mail, bday, fname, lname, "teacherFlag", branch, dept_id, "studentFlag", gpa, grade, "memberFlag", address_id )
+VALUES (7, '123456', '+905456743417', 'berke.durmaz@gmail.com', '25-04-1989', 'Berke','Durmaz', '0', null, null, '0', null, null, '1', 1);
+
+
+INSERT INTO public."FILE" (file_id, name, privacy, person_id)
+VALUES (1, 'dönem projesi', '1', 1);
+
+INSERT INTO public."FILE" (file_id, name, privacy, person_id)
+VALUES (2, 'dönem projesi teslim', '0', 2);
+
+INSERT INTO public."FILE" (file_id, name, privacy, person_id)
+VALUES (3, 'dönem projesi teslim', '0', 3);
+
+
+INSERT INTO public."UNIVERSITY" (org_id, name, mail, phone)
+VALUES (1, 'Ege Üniversitesi', 'ege@university.com', '+905557894565');
+
+INSERT INTO public."UNIVERSITY" (org_id, name, mail, phone)
+VALUES (2, 'Boğaziçi Ünersitesi', 'bogazici@university.com', '+905317894578');
+
+
+
+
+INSERT INTO public."COMPANY" (org_id, name, mail, phone)
+VALUES (1, 'İşBank', 'isbank@kurumsal.com', '+905557891357');
+
+INSERT INTO public."COMPANY" (org_id, name, mail, phone)
+VALUES (2, 'LCW', 'lcw@kurumsal.com', '+905479651578');
+
+
+
+INSERT INTO public."COURSE" (course_id, name, code, credit, dept_id)
+VALUES (1, 'Turkish1', 'TR201', 6, 1);
+
+INSERT INTO public."COURSE" (course_id, name, code, credit, dept_id)
+VALUES (2, 'Turkish2', 'TR202', 6, 1);
+
+INSERT INTO public."COURSE" (course_id, name, code, credit, dept_id)
+VALUES (3, 'Matematik1', 'MT361', 8, 1);
+
+INSERT INTO public."COURSE" (course_id, name, code, credit, dept_id)
+VALUES (4, 'Matematik2', 'MT362', 8, 1);
+
+
+INSERT INTO public."PROJECT" (project_id, title, description, course_id)
+VALUES (1, 'kompozisyon', 'kompozisyon yazınız.', 1);
+
+INSERT INTO public."PROJECT" (project_id, title, description, course_id)
+VALUES (2, 'araştırma', 'ünlü matematikçileri araştırınız.', 3);
+
+INSERT INTO public."PROJECT" (project_id, title, description, course_id)
+VALUES (3, 'kanıtla', 'bir matematik formülünün kanıtını yapınız.', 3);
+
+INSERT INTO public."PROJECT" (project_id, title, description, course_id)
+VALUES (4, '2=2', '2=2 nin doğruluğunu kontrol ediniz.', 4);
+
+
+
+
+
+
+INSERT INTO public."MEMBER_CONNECT" (person_id, connect_person_id)
+VALUES (1, '2');
+
+INSERT INTO public."MEMBER_CONNECT" (person_id, connect_person_id)
+VALUES (1, '3');
+
+INSERT INTO public."MEMBER_CONNECT" (person_id, connect_person_id)
+VALUES (1, '4');
+
+INSERT INTO public."MEMBER_CONNECT" (person_id, connect_person_id)
+VALUES (1, '5');
+
+INSERT INTO public."MEMBER_CONNECT" (person_id, connect_person_id)
+VALUES (2, '3');
+
+INSERT INTO public."MEMBER_CONNECT" (person_id, connect_person_id)
+VALUES (2, '4');
+
+INSERT INTO public."MEMBER_CONNECT" (person_id, connect_person_id)
+VALUES (3, '5');
+
+INSERT INTO public."MEMBER_CONNECT" (person_id, connect_person_id)
+VALUES (3, '4');
+
+
+
+INSERT INTO public."MEMBER_MESSAGE" (person_id, connect_person_id, title, date, context_text)
+VALUES (1, 2, 'önemli', '2-2-2022', 'proje teslimini unutmayın.');
+
+INSERT INTO public."MEMBER_MESSAGE" (person_id, connect_person_id, title, date, context_text)
+VALUES (2, 3, 'projee!!', '2-2-2022', 'projemiz varmış?.');
+
+
+
+
+
+
+INSERT INTO public."MEMBER_USES" (person_id, post_id)
+VALUES (1,1);
+INSERT INTO public."MEMBER_USES" (person_id, post_id)
+VALUES (2,1);
+INSERT INTO public."MEMBER_USES" (person_id, post_id)
+VALUES (3,1);
+INSERT INTO public."MEMBER_USES" (person_id, post_id)
+VALUES (1,2);
+INSERT INTO public."MEMBER_USES" (person_id, post_id)
+VALUES (5,2);
+INSERT INTO public."MEMBER_USES" (person_id, post_id)
+VALUES (4,2);
+INSERT INTO public."MEMBER_USES" (person_id, post_id)
+VALUES (3,3);
+
+
+
+
+INSERT INTO public."MEMBER_APPLIES_JOB_OFFER" (offer_id, person_id)
+VALUES (1, 4);
+INSERT INTO public."MEMBER_APPLIES_JOB_OFFER" (offer_id, person_id)
+VALUES (2, 5);
+INSERT INTO public."MEMBER_APPLIES_JOB_OFFER" (offer_id, person_id)
+VALUES (4, 5);
+
+
+
+
+INSERT INTO public."MEMBER_FOLLOWS" (person_id, company_id)
+VALUES (4, 1);
+INSERT INTO public."MEMBER_FOLLOWS" (person_id, company_id)
+VALUES (5, 2);
+
+
+INSERT INTO public."PERSON_SKILL" (skill_id, person_id)
+VALUES (4, 2);
+INSERT INTO public."PERSON_SKILL" (skill_id, person_id)
+VALUES (4, 4);
+INSERT INTO public."PERSON_SKILL" (skill_id, person_id)
+VALUES (5, 3);
+INSERT INTO public."PERSON_SKILL" (skill_id, person_id)
+VALUES (5, 4);
+INSERT INTO public."PERSON_SKILL" (skill_id, person_id)
+VALUES (5, 5);
+
+
+
+INSERT INTO public."PERSON_EDUCATES_IN" (person_id, grad_id)
+VALUES (4, 1);
+INSERT INTO public."PERSON_EDUCATES_IN" (person_id, grad_id)
+VALUES (5, 2);
+
+
+
+INSERT INTO public."COURSE_TEACHES" (person_id, course_id, semester)
+VALUES (1, 1, 'güz');
+INSERT INTO public."COURSE_TEACHES" (person_id, course_id, semester)
+VALUES (1, 2, 'bahar');
+
+
+
+
+INSERT INTO public."STUDENTS_WORK_ON_PROJECT" (person_id, project_id, grade)
+VALUES (2,1,1);
+INSERT INTO public."STUDENTS_WORK_ON_PROJECT" (person_id, project_id, grade)
+VALUES (3,1,1);
+INSERT INTO public."STUDENTS_WORK_ON_PROJECT" (person_id, project_id, grade)
+VALUES (3,2,1);
+INSERT INTO public."STUDENTS_WORK_ON_PROJECT" (person_id, project_id, grade)
+VALUES (3,3,1);
+INSERT INTO public."STUDENTS_WORK_ON_PROJECT" (person_id, project_id, grade)
+VALUES (3,4,1);
+INSERT INTO public."STUDENTS_WORK_ON_PROJECT" (person_id, project_id, grade)
+VALUES (2,4,1);
+
+
+
+
+INSERT INTO public."STUDENT_ENROLL" (person_id, course_id, semester, grade)
+VALUES (2,1,'güz','1');
+INSERT INTO public."STUDENT_ENROLL" (person_id, course_id, semester, grade)
+VALUES (2,2,'bahar','1');
+INSERT INTO public."STUDENT_ENROLL" (person_id, course_id, semester, grade)
+VALUES (3,2,'güz','1');
+INSERT INTO public."STUDENT_ENROLL" (person_id, course_id, semester, grade)
+VALUES (3,4,'bahar','1');
+
+
+
+INSERT INTO public."MEMBER_COMMENT" (person_id, comment_id)
+VALUES (4,1);
+INSERT INTO public."MEMBER_COMMENT" (person_id, comment_id)
+VALUES (4,2);
+INSERT INTO public."MEMBER_COMMENT" (person_id, comment_id)
+VALUES (5,3);
+
+
+
+INSERT INTO public."OFFICE" (office_id, name, org_id)
+VALUES (1, 'istanbul şubesi', 1);
+INSERT INTO public."OFFICE" (office_id, name, org_id)
+VALUES (2, 'izmir şubesi', 1);
+INSERT INTO public."OFFICE" (office_id, name, org_id)
+VALUES (3, 'kocaeli şubesi', 1);
+INSERT INTO public."OFFICE" (office_id, name, org_id)
+VALUES (4, 'muğla şubesi', 2);
+INSERT INTO public."OFFICE" (office_id, name, org_id)
+VALUES (5, 'istanbul şubesi', 2);
+INSERT INTO public."OFFICE" (office_id, name, org_id)
+VALUES (6, 'izmir şubesi', 2);
+
+
+
+
+INSERT INTO public."MEMBER_POST" (person_id, post_id)
+VALUES (6,1);
+INSERT INTO public."MEMBER_POST" (person_id, post_id)
+VALUES (7,2);
+INSERT INTO public."MEMBER_POST" (person_id, post_id)
+VALUES (6,3);
+
+
+INSERT INTO public."GROUP" (group_id, name, description, person_id)
+VALUES (1, 'Güvercin severler derneği', 'gerçek güvercin severler için toplanma yeri.', 4);
+
+INSERT INTO public."GROUP" (group_id, name, description, person_id)
+VALUES (2, 'floresan mağdurları', 'hepimizin floresanı patladı.', 4);
+
+INSERT INTO public."GROUP" (group_id, name, description, person_id)
+VALUES (3, 'Kupon tartışma grubu', '%100 tutacak kuponlar burada.', 5);
+
+INSERT INTO public."GROUP" (group_id, name, description, person_id)
+VALUES (4, 'kitap okuma grubu', 'her hafta bir kitap', 6);
+
+
+
+INSERT INTO public."GROUP_JOIN" (group_id, person_id)
+VALUES (1, 4);
+
+INSERT INTO public."GROUP_JOIN" (group_id, person_id)
+VALUES (2, 4);
+
+INSERT INTO public."GROUP_JOIN" (group_id, person_id)
+VALUES (1, 5);
+
+INSERT INTO public."GROUP_JOIN" (group_id, person_id)
+VALUES (1, 6);
+
+INSERT INTO public."GROUP_JOIN" (group_id, person_id)
+VALUES (1, 7);
+
+INSERT INTO public."GROUP_JOIN" (group_id, person_id)
+VALUES (2, 7);
+
+INSERT INTO public."GROUP_JOIN" (group_id, person_id)
+VALUES (3, 5);
+
+INSERT INTO public."GROUP_JOIN" (group_id, person_id)
+VALUES (3, 6);
+
+
+
+INSERT INTO public."GROUP_MANAGE" (group_id, person_id)
+VALUES (1, 4);
+
+INSERT INTO public."GROUP_MANAGE" (group_id, person_id)
+VALUES (1, 5);
+
+INSERT INTO public."GROUP_MANAGE" (group_id, person_id)
+VALUES (1, 6);
+
+INSERT INTO public."GROUP_MANAGE" (group_id, person_id)
+VALUES (2, 4);
+
+INSERT INTO public."GROUP_MANAGE" (group_id, person_id)
+VALUES (3, 5);
+
+INSERT INTO public."GROUP_MANAGE" (group_id, person_id)
+VALUES (4, 6);
+
+
+INSERT INTO public."MEMBER_WORKS_FOR_OFFICE" (person_id, office_id, start_date, end_date, job_title)
+VALUES (4, 2, null, null, null);
+INSERT INTO public."MEMBER_WORKS_FOR_OFFICE" (person_id, office_id, start_date, end_date, job_title)
+VALUES (5, 2, null, null, null);
+INSERT INTO public."MEMBER_WORKS_FOR_OFFICE" (person_id, office_id, start_date, end_date, job_title)
+VALUES (6, 4, null, null, null);
+INSERT INTO public."MEMBER_WORKS_FOR_OFFICE" (person_id, office_id, start_date, end_date, job_title)
+VALUES (7, 5, null, null, null);
+
+INSERT INTO public."MEMBER_LIKES_POST" (person_id, post_id)
+VALUES (4,1);
+INSERT INTO public."MEMBER_LIKES_POST" (person_id, post_id)
+VALUES (5,1);
+INSERT INTO public."MEMBER_LIKES_POST" (person_id, post_id)
+VALUES (6,1);
+INSERT INTO public."MEMBER_LIKES_POST" (person_id, post_id)
+VALUES (7,1);
+INSERT INTO public."MEMBER_LIKES_POST" (person_id, post_id)
+VALUES (1,1);
+INSERT INTO public."MEMBER_LIKES_POST" (person_id, post_id)
+VALUES (2,1);
+INSERT INTO public."MEMBER_LIKES_POST" (person_id, post_id)
+VALUES (3,1);
+INSERT INTO public."MEMBER_LIKES_POST" (person_id, post_id)
+VALUES (4,2);
+INSERT INTO public."MEMBER_LIKES_POST" (person_id, post_id)
+VALUES (5,2);
+INSERT INTO public."MEMBER_LIKES_POST" (person_id, post_id)
+VALUES (1,3);
+INSERT INTO public."MEMBER_LIKES_POST" (person_id, post_id)
+VALUES (2,3);
+INSERT INTO public."MEMBER_LIKES_POST" (person_id, post_id)
+VALUES (3,3);

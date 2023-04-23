@@ -1,0 +1,127 @@
+//person isim listesi
+SELECT public."PERSON".fname
+FROM public."PERSON";
+
+//grup isimler ve açıklamaları
+SELECT public."GROUP".name, public."GROUP".description
+FROM public."GROUP";
+
+//iş ilanları
+SELECT public."JOB_OFFER".job_title, public."JOB_OFFER".description
+FROM public."JOB_OFFER";
+
+------------------------
+
+//id'si 1 olan grubun üyeleri
+SELECT public."PERSON".fname
+FROM public."PERSON"
+INNER JOIN public."GROUP_JOIN"
+ON public."GROUP_JOIN".person_id =  public."PERSON".person_id
+WHERE public."GROUP_JOIN".group_id = 1;
+
+//id'si 1 olan posta atılan comment'lar
+SELECT public."POST".text , public."COMMENT".content
+FROM public."POST"
+INNER JOIN public."COMMENT"
+ON public."POST".post_id =  public."COMMENT".post_id
+WHERE public."POST".post_id = 1;
+
+//personid'si 5 olan kişinin başvurduğu iş ilanları
+SELECT public."JOB_OFFER".job_title, public."JOB_OFFER".description
+FROM public."JOB_OFFER"
+INNER JOIN public."MEMBER_APPLIES_JOB_OFFER"
+ON public."JOB_OFFER".offer_id =  public."MEMBER_APPLIES_JOB_OFFER".offer_id
+WHERE public."MEMBER_APPLIES_JOB_OFFER".person_id = 5;
+
+/id'si 1 olan company ofisleri
+SELECT office_id, public."OFFICE".name, public."COMPANY".name
+FROM public."OFFICE"
+INNER JOIN public."COMPANY"
+ON public."OFFICE".org_id =  public."COMPANY".org_id
+WHERE public."OFFICE".org_id = 1;
+
+
+-------------------------------
+
+//senior java geliştiriciler isim listesi
+SELECT public."PERSON".fname, public."PERSON".lname, public."SKILL".name, public."SKILL".category, public."SKILL".expreience
+FROM public."PERSON_SKILL"
+INNER JOIN public."PERSON"
+ON public."PERSON_SKILL".person_id =  public."PERSON".person_id
+INNER JOIN public."SKILL"
+ON public."SKILL".skill_id =  public."PERSON_SKILL".skill_id
+WHERE public."PERSON_SKILL".skill_id = 5;
+
+//id'si 1 olan gubun ismi ve üyelerinin ismi.
+SELECT public."GROUP".name, public."PERSON".fname, public."PERSON".Lname
+FROM public."PERSON"
+INNER JOIN public."GROUP_JOIN"
+ON public."GROUP_JOIN".person_id =  public."PERSON".person_id
+INNER JOIN public."GROUP"
+ON public."GROUP".group_id =  public."GROUP_JOIN".group_id
+WHERE public."GROUP_JOIN".group_id = 1;
+
+
+//person_id'si 2 olan cem sakin'in çalıştığı projeler
+SELECT public."PERSON".fname, public."PERSON".lname, public."PROJECT".title, public."PROJECT".description
+FROM public."PROJECT"
+INNER JOIN public."STUDENTS_WORK_ON_PROJECT"
+ON public."PROJECT".project_id =  public."STUDENTS_WORK_ON_PROJECT".project_id
+INNER JOIN public."PERSON"
+ON public."PERSON".person_id =  public."STUDENTS_WORK_ON_PROJECT".person_id
+WHERE public."PERSON".person_id = 2;
+
+
+-----------------------------special sorgu
+
+//id'si 1 olan post'a gelen commentlar ve gönderici isimleri
+SELECT public."POST".text, public."PERSON".fname, public."PERSON".lname, public."COMMENT".content
+FROM public."POST"
+INNER JOIN public."COMMENT"
+ON public."POST".post_id =  public."COMMENT".post_id
+INNER JOIN public."MEMBER_COMMENT"
+ON public."MEMBER_COMMENT".comment_id =  public."COMMENT".comment_id
+INNER JOIN public."PERSON"
+ON public."MEMBER_COMMENT".person_id =  public."PERSON".person_id
+WHERE public."POST".post_id = 1;
+
+//course_id 2 kayıtlı öğrenci isimleri
+SELECT public."PERSON".fname, public."PERSON".lname, public."COURSE".name, public."COURSE".code
+FROM public."STUDENT_ENROLL"
+INNER JOIN public."PERSON"
+ON public."STUDENT_ENROLL".person_id =  public."PERSON".person_id
+INNER JOIN public."ADRESS"
+ON public."ADRESS".address_id =  public."PERSON".address_id
+INNER JOIN public."COURSE"
+ON public."COURSE".course_id =  public."STUDENT_ENROLL".course_id
+WHERE public."STUDENT_ENROLL".course_id = 2;
+
+
+//izmirde yaşayanlar
+SELECT  public."PERSON".fname,  public."PERSON".lname,  public."PERSON".phone,  public."PERSON".mail
+FROM  public."PERSON"
+WHERE  address_id IN
+   (SELECT address_id
+	FROM public."ADRESS"
+	WHERE (public."ADRESS".city) = 'İzmir');
+
+//halihazırda bir ofiste çalışıp iş başvurusunda bulunanlar
+SELECT  public."PERSON".fname, public."PERSON".lname, public."PERSON".phone
+FROM  public."MEMBER_WORKS_FOR_OFFICE"
+INNER JOIN public."PERSON"
+ON public."PERSON".person_id =  public."MEMBER_WORKS_FOR_OFFICE".person_id
+WHERE public."MEMBER_WORKS_FOR_OFFICE".person_id IN
+   (SELECT person_id
+	FROM public."MEMBER_APPLIES_JOB_OFFER");
+
+//beğeni sırasına göre post ve gönderen kişi adı soyadı
+SELECT count(public."MEMBER_LIKES_POST".person_id) AS "LIKE", public."POST".text, public."PERSON".fname, public."PERSON".lname
+FROM public."MEMBER_LIKES_POST"
+INNER JOIN public."MEMBER_POST"
+ON public."MEMBER_POST".post_id =  public."MEMBER_LIKES_POST".post_id
+INNER JOIN public."PERSON"
+ON public."PERSON".person_id =  public."MEMBER_POST".person_id
+INNER JOIN public."POST"
+ON public."POST".post_id =  public."MEMBER_LIKES_POST".post_id
+GROUP BY public."MEMBER_LIKES_POST".post_id, public."PERSON".fname, public."PERSON".lname, public."POST".text
+ORDER BY count(public."MEMBER_LIKES_POST".person_id) DESC;
